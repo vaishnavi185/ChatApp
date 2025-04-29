@@ -1,10 +1,28 @@
 const express=require('express');
-const user = require('../model/Usermodel');
-const expressAsynHandler = require('express-async-handler');
 
-const logincontroller=()=>{
-    res.send("login")
-}
+const expressAsynHandler = require('express-async-handler');
+const generateToken =require('../config/token.js');
+const user = require('../model/Usermodel');
+
+const logincontroller=expressAsynHandler(async(req,res)=>{
+
+    const {name,passward}=req.body;
+    const User = await user.findOne({ name})
+    if( User && (await User.matchpassward(passward))){
+        res.status(201).json({
+            _id:User._id,
+            name:User.name,
+            email:User.email,
+            isAdmin:User.isAdmin,
+            token:generateToken(User._id)
+        })
+
+    }
+    else{
+        res.status(400).json({message:"invalid userr name or passward"})
+    }
+    
+})
 const registercontroller=expressAsynHandler(async (req,res)=>{
     //exceptional handling
 
@@ -27,6 +45,20 @@ const registercontroller=expressAsynHandler(async (req,res)=>{
     const newuser = await user.create({
         name,email,passward
     })
+
+    if(newuser){
+        res.status(201).json({
+            _id:newuser._id,
+            name:newuser.name,
+            email:newuser.email,
+            isAdmin:newuser.isAdmin,
+            token:generateToken(newuser._id)
+        })
+    }
+    else{
+        res.status(400).json({message:"user not found"})
+        
+    }
 
 })
 
