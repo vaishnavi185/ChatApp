@@ -102,4 +102,6 @@ const fetchuser = expressAsynHandler(async (req, res) => {
     }
 });
 
+
+
 module.exports = { logincontroller, registercontroller, fetchuser };

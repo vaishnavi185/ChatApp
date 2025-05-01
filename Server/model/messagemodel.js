@@ -1,30 +1,31 @@
-const mongoose=require('mongoose');
-messagemodel=mongoose.Schema({
-    sender:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+const mongoose = require('mongoose');
+
+const messageSchema = mongoose.Schema(
+  {
+    sender: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to the User model
+      required: true,
     },
-    reciever:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+    receiver: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to the User model
     },
-    groupAdmin:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+    groupAdmin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to the User model
     },
-    chat :{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'chat'
-        
+    chat: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Chat', // Reference to the Chat model
+      required: true,
     },
+  },
+  {
+    timestamps: true, // Corrected spelling
+  }
+);
 
+const Message = mongoose.model('Message', messageSchema);
 
-
-
-},
-{
-    timeStamps:true
-})
-
-const msg=mongoose.model('msg',messagemodelmodel);
-module.exports=msg;
+module.exports = Message;

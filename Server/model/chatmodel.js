@@ -3,13 +3,13 @@ const mongoose= require('mongoose');
 const chatmodel = mongoose.Schema({
     ChatName :{type:String},
     isGroupChat:{type:Boolean},
-    User:[
+    users:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'user'
         }
     ],
-    lastmessage:{
+    latestmessage:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'msg'
     },
