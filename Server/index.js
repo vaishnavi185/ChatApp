@@ -4,9 +4,10 @@ const connect = require('./config/database.js');
 const userroutes=require('./routes/userroutes.js')
 const chatroute=require('./routes/chatroutes.js')
 const messageRoutes = require("./routes/messageroutes.js")
-
+const cors = require('cors');
 dotenv.config();
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 const Database_url = process.env.DATABASE_URL;
 

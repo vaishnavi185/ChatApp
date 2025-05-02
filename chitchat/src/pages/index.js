@@ -1,9 +1,16 @@
-import React from 'react';
-import Signup from '../components/Home';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  return (
-    <Signup />
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    // Programmatically navigate to the /signup route
+    router.push('/signup');
+    router.push('/login');
+  }, [router]);
+  
+
+  return null; // Optionally, you can return a loading spinner or message here
 }
 
