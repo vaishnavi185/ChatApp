@@ -1,12 +1,9 @@
+import React from 'react';
+import Signup from '../components/Home';
 
-
-import React from 'react'
-
-export default function index() {
+export default function Home() {
   return (
-    <div>
-      fhfju
-    </div>
-  )
+    <Signup />
+  );
 }
 
