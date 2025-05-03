@@ -17,7 +17,7 @@ export default function Signup() {
 
     // Validation: Check if all fields are filled
     if (!formData.name || !formData.email || !formData.passward) {
-      setError('Please fill all fields');
+      setError('Please fill all field');
       setMessage('');
       return;
     }
