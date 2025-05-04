@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './Nav.jsx';
+import List from './List.jsx'
 
 export default function ChatScreen() {
   return (
@@ -10,8 +11,10 @@ export default function ChatScreen() {
             <div className='w-[500px] h-[55px] bg-[#def2fa] rounded-2xl'>
               <Nav />
             </div>
-            <div>02</div>
-            <div>03</div>
+            <div>
+              <List></List>
+            </div>
+            
           </div>
         </div>
         <div className="col-span-2 row-span-2 ...">03</div>
