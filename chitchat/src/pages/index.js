@@ -8,6 +8,7 @@ export default function Home() {
     // Programmatically navigate to the /signup route
     router.push('/signup');
     router.push('/login');
+    router.push('/Chat')
   }, [router]);
   
 
