@@ -1,9 +1,18 @@
 import React from 'react'
+import Card from './Card'
+import Chat from '@/pages/Chat'
 
 export default function List() {
   return (
-    <div className=' w-[500px] h-[640px] bg-[#def2fa] rounded-2xl mt-4'>
+    <div className='gap-y-[10px] flex flex-col' >
+     <br></br>
+      <Card></Card>
       
+    
+    
+      
+    
+  
     </div>
   )
 }

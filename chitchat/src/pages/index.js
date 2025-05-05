@@ -9,6 +9,7 @@ export default function Home() {
     router.push('/signup');
     router.push('/login');
     router.push('/Chat')
+    router.push('/Card')
   }, [router]);
   
 

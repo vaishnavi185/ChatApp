@@ -11,9 +11,9 @@ export default function ChatScreen() {
             <div className='w-[500px] h-[55px] bg-[#def2fa] rounded-2xl'>
               <Nav />
             </div>
-            <div>
-              <List></List>
-            </div>
+            <div className="w-[500px] h-[640px] bg-[#def2fa] rounded-2xl mt-4  overflow-y-auto">
+  <List />
+</div>
             
           </div>
         </div>
