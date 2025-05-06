@@ -6,10 +6,9 @@ export default function Home() {
 
   useEffect(() => {
     // Programmatically navigate to the /signup route
-    router.push('/signup');
-    router.push('/login');
-    router.push('/Chat')
-    router.push('/Card')
+  
+    router.replace('/Chat')
+ 
   }, [router]);
   
 
