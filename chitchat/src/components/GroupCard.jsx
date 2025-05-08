@@ -1,16 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
-export default function GroupCard({ onClick }) {
-  const dummyData = {
-    name: "Team Alpha",
-    lastMessage: "Meeting starts at 3 PM",
-    time: "11:30 AM"
-  };
-
+export default function GroupCard({ onClick, dummyData }) {
   return (
     <div
-      onClick={() => onClick(dummyData)}
+      onClick={() => onClick(dummyData)} // Call parent click handler with this group data
       className='w-[470px] h-[65px] bg-[#ffffff] rounded-2xl flex ml-4 flex-row gap-x-[5px] cursor-pointer'
     >
       <div className='ml-2 mt-2'>

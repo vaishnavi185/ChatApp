@@ -4,7 +4,7 @@ import { faCircleUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 export default function Card({ isGroup }) {
   return (
-    <div className='w-[470px] h-[65px] bg-[#ffffff] rounded-2xl flex ml-4 flex-row gap-x-[5px]'>
+    <div className='w-[470px] h-[65px] bg-[#d7dad9] rounded-2xl flex ml-4 flex-row gap-x-[5px] '>
       {/* User or Group Icon */}
       <div className='ml-2 mt-2'>
         <FontAwesomeIcon
