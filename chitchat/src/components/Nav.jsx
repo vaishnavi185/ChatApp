@@ -3,27 +3,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faUser, faUsers, faPlus, faPalette } from '@fortawesome/free-solid-svg-icons';
 import GroupCard from './GroupCard';
 import Card from './Card'; // User card component
+import List from './List'; // Import the List component
 
 export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, dummyUsers }) {
   const [showUserCards, setShowUserCards] = useState(false);
+  const [showUserList, setShowUserList] = useState(false); // State for user list
 
   const handleGroupClick = (groupData) => {
     setSelectedGroup(groupData);
     setSelectedUser(null);
     setShowUserCards(false);
+    setShowUserList(false); // Hide user list
   };
 
   const handleUserClick = () => {
     setSelectedUser(null);
     setSelectedGroup(null);
-    setShowUserCards(true); // This is what makes the user cards appear
+    setShowUserCards(true);
+    setShowUserList(false); // Hide user list
   };
+
   const handleGropuClick = () => {
     setSelectedUser(null);
     setSelectedGroup(null);
-    setShowUserCards(false); // This is what makes the user cards appear
+    setShowUserCards(false);
+    setShowUserList(false); // Hide user list
   };
- 
+
+  const handleCreateClick = () => {
+    setShowUserList(true); // Show user list
+    setShowUserCards(false);
+    setSelectedGroup(null);
+    setSelectedUser(null);
+  };
 
   const handleCardClick = (userData) => {
     setSelectedUser(userData);
@@ -46,7 +58,7 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
             </button>
           </div>
           <div>
-            <button title="Create">
+            <button onClick={handleCreateClick} title="Create"> {/* Updated */}
               <FontAwesomeIcon icon={faPlus} size="lg" style={{ color: "#007bff" }} />
             </button>
           </div>
@@ -63,14 +75,16 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
         </div>
       </div>
 
-      {/* Group List or User Cards */}
+      {/* Group List, User Cards, or User List */}
       <div className="mt-5">
-        {!showUserCards ? (
+        {!showUserCards && !showUserList ? (
           dummyGroups.map((group) => (
             <GroupCard key={group.id} dummyData={group} onClick={handleGroupClick} />
           ))
-        ) : (
+        ) : showUserCards ? (
           <Card data={dummyUsers} onCardClick={handleCardClick} />
+        ) : (
+          <List users={dummyUsers} /> // Render the List component
         )}
       </div>
     </div>
