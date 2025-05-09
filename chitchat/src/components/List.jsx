@@ -4,11 +4,11 @@ import Chat from '@/pages/Chat'
 
 export default function List() {
   return (
-    <div className='gap-y-[10px] flex flex-col' >
+    <div className='gap-y-[10px] flex flex-col ' >
      <br></br>
       <Card></Card>
       
-    
+    fdfs
     
       
     
