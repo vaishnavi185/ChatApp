@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faUser, faUsers, faPlus, faPalette } from '@fortawesome/free-solid-svg-icons';
 import GroupCard from './GroupCard';
 import Card from './Card'; // User card component
-import List from './List'; // Import the List component
+import UserList from './UserList';
+
 
 export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, dummyUsers }) {
   const [showUserCards, setShowUserCards] = useState(false);
@@ -84,7 +85,7 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
         ) : showUserCards ? (
           <Card data={dummyUsers} onCardClick={handleCardClick} />
         ) : (
-          <List users={dummyUsers} /> // Render the List component
+         <UserList /> // Render the List component
         )}
       </div>
     </div>

@@ -22,14 +22,25 @@ export default function Signup() {
       setMessage('');
       return;
     }
- console.log('Form Data:', formData);
+
+    if (formData.passward.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setMessage('');
+      return;
+    }
+
+    console.log('Form Data:', formData);
     setLoading(true); // Start loading
     try {
       const response = await axios.post('http://localhost:9000/user/register', formData); // Use "passward" in the payload
+      const { token } = response.data; // Extract token from the response
+      console.log('Token:', token); // Debugging: Log the token
+      localStorage.setItem('authToken', token); // Store token in localStorage
       setMessage('Signup successful!');
       setError('');
       router.push('/Chat'); // Navigate to chat screen on successful signup
     } catch (err) {
+      console.error('Signup Error:', err.response?.data?.message || 'Signup failed.');
       setError(err.response?.data?.message || 'Signup failed.');
       setMessage('');
     } finally {
@@ -62,9 +73,9 @@ export default function Signup() {
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
-            type="passward" // Use "passward"
+            type="password" // Corrected type from "passward" to "password"
             name="passward"
-            placeholder="Passward"
+            placeholder="Password"
             value={formData.passward}
             onChange={handleChange}
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -79,6 +90,9 @@ export default function Signup() {
         </div>
         {message && <p className="mt-4 text-center text-green-500">{message}</p>}
         {error && <p className="mt-4 text-center text-red-500">{error}</p>}
+        <p className="text-center mt-4">
+          Already have an account? <a href="/login" className="text-blue-500 hover:underline">Login</a>
+        </p>
       </form>
     </div>
   );

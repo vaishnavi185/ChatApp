@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router'; // Import useRouter for navigation
 
 function Login() {
   const [formData, setFormData] = useState({ name: '', passward: '' });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // State to track loading
+  const router = useRouter(); // Initialize router for navigation
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,9 +26,14 @@ function Login() {
     setLoading(true); // Start loading
     try {
       const response = await axios.post('http://localhost:9000/user/login', formData); // Replace with your backend URL
+      const { token } = response.data; // Extract token from the response
+      console.log('Token:', token); // Debugging: Log the token
+      localStorage.setItem('authToken', token); // Store token in localStorage
       setMessage('Login successful!');
       setError('');
+      router.push('/Chat'); // Navigate to chat screen on successful login
     } catch (err) {
+      console.error('Login Error:', err.response?.data?.message || 'Login failed.'); // Debugging: Log the error
       setError(err.response?.data?.message || 'Login failed.');
       setMessage('');
     } finally {
@@ -51,9 +58,9 @@ function Login() {
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
-            type="passward"
+            type="password" // Corrected type from "passward" to "password"
             name="passward"
-            placeholder="Passward"
+            placeholder="Password"
             value={formData.passward}
             onChange={handleChange}
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -68,6 +75,12 @@ function Login() {
         </div>
         {message && <p className="mt-4 text-center text-green-500">{message}</p>}
         {error && <p className="mt-4 text-center text-red-500">{error}</p>}
+        <p className="text-center mt-4">
+          Don't have an account?{' '}
+          <a href="/Signup" className="text-blue-500 hover:underline">
+            Signup
+          </a>
+        </p>
       </form>
     </div>
   );
