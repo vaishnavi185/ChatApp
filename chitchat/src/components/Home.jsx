@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router'; // Import useRouter
 
 export default function Signup() {
-  const [formData, setFormData] = useState({ name: '', email: '', passward: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', passward: '' }); // Use "passward"
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // State to track loading
+  const router = useRouter(); // Initialize router
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-   
   };
 
   const handleSubmit = async (e) => {
@@ -17,16 +18,17 @@ export default function Signup() {
 
     // Validation: Check if all fields are filled
     if (!formData.name || !formData.email || !formData.passward) {
-      setError('Please fill all field');
+      setError('Please fill all fields');
       setMessage('');
       return;
     }
-
+ console.log('Form Data:', formData);
     setLoading(true); // Start loading
     try {
-      const response = await axios.post('http://localhost:9000/user/register', formData); // Replace with your backend URL
+      const response = await axios.post('http://localhost:9000/user/register', formData); // Use "passward" in the payload
       setMessage('Signup successful!');
       setError('');
+      router.push('/Chat'); // Navigate to chat screen on successful signup
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed.');
       setMessage('');
@@ -60,7 +62,7 @@ export default function Signup() {
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
-            type="passward"
+            type="passward" // Use "passward"
             name="passward"
             placeholder="Passward"
             value={formData.passward}

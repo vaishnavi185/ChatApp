@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export default function List({ users }) {
+  const handleUserClick = (user) => {
+    alert(`${user.name} was added`);
+  };
+
   return (
     <div className="flex flex-col gap-y-[10px]">
       {users.map((user) => (
@@ -11,7 +15,11 @@ export default function List({ users }) {
             <p className="text-lg font-semibold">{user.name}</p>
             <p className="text-sm text-gray-600">{user.email}</p>
           </div>
-           <button title="Add" className="hover:text-blue-500">
+          <button
+            title="Add"
+            className="hover:text-blue-500"
+            onClick={() => handleUserClick(user)} // Pass the specific user object
+          >
             <FontAwesomeIcon icon={faPlus} size="lg" />
           </button>
         </div>
