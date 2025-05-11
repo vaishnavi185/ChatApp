@@ -2,37 +2,31 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faUser, faUsers, faPlus, faPalette } from '@fortawesome/free-solid-svg-icons';
 import GroupCard from './GroupCard';
-import Card from './Card'; // User card component
+import Card from './Card';
 import UserList from './UserList';
 
-
-export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, dummyUsers }) {
+export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups }) {
   const [showUserCards, setShowUserCards] = useState(false);
-  const [showUserList, setShowUserList] = useState(false); // State for user list
+  const [showUserList, setShowUserList] = useState(false);
+  const [addedUsers, setAddedUsers] = useState([]);
+  
 
   const handleGroupClick = (groupData) => {
     setSelectedGroup(groupData);
     setSelectedUser(null);
     setShowUserCards(false);
-    setShowUserList(false); // Hide user list
+    setShowUserList(false);
   };
 
   const handleUserClick = () => {
     setSelectedUser(null);
     setSelectedGroup(null);
     setShowUserCards(true);
-    setShowUserList(false); // Hide user list
-  };
-
-  const handleGropuClick = () => {
-    setSelectedUser(null);
-    setSelectedGroup(null);
-    setShowUserCards(false);
-    setShowUserList(false); // Hide user list
+    setShowUserList(false);
   };
 
   const handleCreateClick = () => {
-    setShowUserList(true); // Show user list
+    setShowUserList(true);
     setShowUserCards(false);
     setSelectedGroup(null);
     setSelectedUser(null);
@@ -41,6 +35,14 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
   const handleCardClick = (userData) => {
     setSelectedUser(userData);
     setSelectedGroup(null);
+  };
+
+  const handleUserAdd = (newUser) => {
+    if (!addedUsers.some((u) => u._id === newUser._id)) {
+      setAddedUsers((prev) => [...prev, newUser]);
+    }
+    setShowUserCards(true);
+    setShowUserList(false);
   };
 
   return (
@@ -59,12 +61,17 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
             </button>
           </div>
           <div>
-            <button onClick={handleCreateClick} title="Create"> {/* Updated */}
+            <button onClick={handleCreateClick} title="Add Users">
               <FontAwesomeIcon icon={faPlus} size="lg" style={{ color: "#007bff" }} />
             </button>
           </div>
           <div>
-            <button onClick={handleGropuClick} title="Groups">
+            <button title="Groups" onClick={() => {
+              setShowUserCards(false);
+              setShowUserList(false);
+              setSelectedUser(null);
+              setSelectedGroup(null);
+            }}>
               <FontAwesomeIcon icon={faUsers} size="lg" style={{ color: "#007bff" }} />
             </button>
           </div>
@@ -76,16 +83,16 @@ export default function Nav({ setSelectedGroup, setSelectedUser, dummyGroups, du
         </div>
       </div>
 
-      {/* Group List, User Cards, or User List */}
+      {/* Main content */}
       <div className="mt-5">
         {!showUserCards && !showUserList ? (
           dummyGroups.map((group) => (
             <GroupCard key={group.id} dummyData={group} onClick={handleGroupClick} />
           ))
         ) : showUserCards ? (
-          <Card data={dummyUsers} onCardClick={handleCardClick} />
+          <Card data={addedUsers} onCardClick={handleCardClick} />
         ) : (
-         <UserList /> // Render the List component
+          <UserList onUserAdd={handleUserAdd} />
         )}
       </div>
     </div>

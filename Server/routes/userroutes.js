@@ -9,4 +9,5 @@ router.post('/login',logincontroller);
 router.post('/register',registercontroller);
 router.get('/fetchuser', protect, fetchuser);
 
+
 module.exports=router;
